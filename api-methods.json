@@ -9,13 +9,29 @@
 	"methods": {
 	
 		"open311.services.getList": {
-			"description": "provide a list of acceptable 311 service request types and their associated service codes. These request types can be unique to the city/jurisdiction",
+			"description": "Provide a list of acceptable 311 service request types and their associated service codes. These request types can be unique to the city/jurisdiction",
 			"enabled": 1,
 			"documented": 1,
 			"requires_auth": 0,
 			"paginated": 1,
 			"method": "GET",
 			"slug" : "services.{format}",
+			"parameters": [
+				{ "name": "jurisdiction_id", "description": "A valid jurisdiction_id to get information about.", "required": 1 }
+			],
+			"response": [
+			   {"name": "services", "description": "Root element."},
+			   {"name": "service", "description": "Container for service_code, service_name, description, metadata, type, keywords, group."},
+			   {"name": "service_code", "description": "The unique identifier for the service request type."},
+			   {"name": "service_name", "description": "The human readable name of the service request type."},
+			   {"name": "description", "description": "A brief description of the service request type."},
+			   {"name": "metadata", "description": "Possible values: true, false", "bullets": 
+			     [
+			       "true: This service request type requires additional metadata so the client will need to make a call to the Service Definition method",
+			       "false: No additional information is required and a call to the Service Definition method is not needed."
+			     ]
+			   }
+			],
 			"example" : "file://./api-methods-examples/open311.services.getList.json"
 		},
 		

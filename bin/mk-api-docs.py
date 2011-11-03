@@ -125,7 +125,7 @@ if __name__ == '__main__':
                 out.write("* **page** - The page of results to return. If this argument is omitted, it defaults to 1.\n")
                 out.write("* **per_page** - Number of results to return per page. If this argument is omitted, it defaults to 100. The maximum allowed value is left to the discretion of individual cities.\n")
 
-            out.write("* **format** - The encoding format for results. If this argument is omitted, it defaults to JSON\n")
+            #out.write("* **format** - The encoding format for results. If this argument is omitted, it defaults to JSON\n")
             out.write("\n")
 
             """
@@ -138,6 +138,34 @@ if __name__ == '__main__':
             
                 for n in details['notes']:
                     out.write("* %s\n\n" % n)
+                
+            """
+            response
+            """
+
+            out.write("**Response**\n\n")
+
+            if details.get('response', False):
+        
+                for p in details['response']:
+
+                    # guh...
+                    name = p['name'].replace("_", "\_")
+                    desc = p['description'].replace("_", "\_")
+                
+                    out.write("* **%s** - %s" % (name, desc))
+                    
+                    out.write("\n")
+                    
+                    if p.get('bullets', False):
+                      
+                      for b in p['bullets']:
+                        
+                        out.write("** %s" % b)
+
+                        out.write("\n")
+
+            out.write("\n")
 
             """
             example

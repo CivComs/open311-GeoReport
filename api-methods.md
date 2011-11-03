@@ -18,13 +18,15 @@ open311.incidents.getInfo
 **Parameters**
 
 * **incident\_id** - The unique ID of the incident to get information about. - _Required_
-* **format** - The encoding format for results. If this argument is omitted, it defaults to JSON
 
 **Notes**
 
 * All dates are recorded using the [W3C DateTime format](http://www.w3.org/TR/NOTE-datetime) format.
 
 * All geographic data is returned using the unprojected [WGS84](http://spatialreference.org/ref/epsg/4326/) datum (read: plain old latitudes and longitudes).
+
+**Response**
+
 
 **Example**
 
@@ -56,13 +58,15 @@ Report an incident for a given service. Returns a unique ID for the incident tha
 * **latitude** - A valid WGS84 coordinate - _Required_
 * **longitude** - A valid WGS84 coordinate - _Required_
 * **description** - A free-form text field in which the user reporting the incident may leave additional notes.
-* **format** - The encoding format for results. If this argument is omitted, it defaults to JSON
 
 **Notes**
 
 * All dates should be passed in using the [W3C DateTime format](http://www.w3.org/TR/NOTE-datetime) format.
 
 * All geographic data is expected to be using the unprojected [WGS84](http://spatialreference.org/ref/epsg/4326/) datum (read: plain old latitudes and longitudes).
+
+**Response**
+
 
 **Example**
 
@@ -96,7 +100,6 @@ Returns a list of incidents matching a search criteria as defined by the API req
 * **where** - A geopgraphic location or extent (see [api.md]((https://github.com/straup/open311-simple/blob/master/api.md) for details) for details) in which to scope the query.
 * **page** - The page of results to return. If this argument is omitted, it defaults to 1.
 * **per_page** - Number of results to return per page. If this argument is omitted, it defaults to 100. The maximum allowed value is left to the discretion of individual cities.
-* **format** - The encoding format for results. If this argument is omitted, it defaults to JSON
 
 **Notes**
 
@@ -107,6 +110,9 @@ Returns a list of incidents matching a search criteria as defined by the API req
 * If called with a valid OAuth token and signature then the query will be scoped to the user associated with that token.
 
 * Parameterless searches are not permitted. You must define at least one search criteria.
+
+**Response**
+
 
 **Example**
 
@@ -137,7 +143,9 @@ Returns basic information (as included in the _open311.services.getList_ method)
 **Parameters**
 
 * **service\_id** - A valid service\_id to get information about. - _Required_
-* **format** - The encoding format for results. If this argument is omitted, it defaults to JSON
+
+**Response**
+
 
 **Example**
 
@@ -154,7 +162,7 @@ Returns basic information (as included in the _open311.services.getList_ method)
 open311.services.getList
 --
 
-provide a list of acceptable 311 service request types and their associated service codes. These request types can be unique to the city/jurisdiction
+Provide a list of acceptable 311 service request types and their associated service codes. These request types can be unique to the city/jurisdiction
 
 **Method**
 
@@ -162,9 +170,20 @@ provide a list of acceptable 311 service request types and their associated serv
 
 **Parameters**
 
+* **jurisdiction\_id** - A valid jurisdiction\_id to get information about. - _Required_
 * **page** - The page of results to return. If this argument is omitted, it defaults to 1.
 * **per_page** - Number of results to return per page. If this argument is omitted, it defaults to 100. The maximum allowed value is left to the discretion of individual cities.
-* **format** - The encoding format for results. If this argument is omitted, it defaults to JSON
+
+**Response**
+
+* **services** - Root element.
+* **service** - Container for service\_code, service\_name, description, metadata, type, keywords, group.
+* **service\_code** - The unique identifier for the service request type.
+* **service\_name** - The human readable name of the service request type.
+* **description** - A brief description of the service request type.
+* **metadata** - Possible values: true, false
+** true: This service request type requires additional metadata so the client will need to make a call to the Service Definition method
+** false: No additional information is required and a call to the Service Definition method is not needed.
 
 **Example**
 
@@ -213,7 +232,9 @@ Return a list of valid statuses for incidents. The types of statuses and their m
 
 * **page** - The page of results to return. If this argument is omitted, it defaults to 1.
 * **per_page** - Number of results to return per page. If this argument is omitted, it defaults to 100. The maximum allowed value is left to the discretion of individual cities.
-* **format** - The encoding format for results. If this argument is omitted, it defaults to JSON
+
+**Response**
+
 
 **Example**
 
@@ -235,7 +256,9 @@ Returns a list of geographic prefixes that may be used to query for incident rep
 
 * **page** - The page of results to return. If this argument is omitted, it defaults to 1.
 * **per_page** - Number of results to return per page. If this argument is omitted, it defaults to 100. The maximum allowed value is left to the discretion of individual cities.
-* **format** - The encoding format for results. If this argument is omitted, it defaults to JSON
+
+**Response**
+
 
 **Example**
 
