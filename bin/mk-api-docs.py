@@ -161,7 +161,7 @@ if __name__ == '__main__':
                       
                       for b in p['bullets']:
                         
-                        out.write("\n%s" % b)
+                        out.write("    * %s" % b)
 
                         out.write("\n")
 

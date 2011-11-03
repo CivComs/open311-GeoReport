@@ -182,10 +182,8 @@ Provide a list of acceptable 311 service request types and their associated serv
 * **service\_name** - The human readable name of the service request type.
 * **description** - A brief description of the service request type.
 * **metadata** - Possible values: true, false
-
-true: This service request type requires additional metadata so the client will need to make a call to the Service Definition method
-
-false: No additional information is required and a call to the Service Definition method is not needed.
+    * true: This service request type requires additional metadata so the client will need to make a call to the Service Definition method
+    * false: No additional information is required and a call to the Service Definition method is not needed.
 
 **Example**
 
