@@ -143,7 +143,7 @@ open311.services
 open311.services.getInfo
 --
 
-Returns basic information (as included in the _open311.services.getList_ method) as well any additional details that may be relevant to the service.
+Defines attributes associated with a service code. These attributes can be unique to the city/jurisdiction. This call is only necessary if the Service selected has metadata set as true from the GET Services response.
 
 **Method**
 
@@ -151,26 +151,96 @@ Returns basic information (as included in the _open311.services.getList_ method)
 
 **Parameters**
 
-* **service\_id** - A valid service\_id to get information about. - _Required_
+* **service\_code** - A valid service\_code to get information about. - _Required_
+* **jurisdiction\_id** - A valid jurisdiction\_id to get information about. - _Required_
 
 **Response**
 
+* **service\_definition** - Root element.
+* **service\_code** - Returns the service\_code associated with the definition, the same one submitted for this call.
+* **attributes** - Container for attribute.
+* **variable** - Options: true, false
+    * true denotes that user input is needed.
+    * false means the attribute is only used to present information to the user within the description field.
+* **code** - A unique identifier for the attribute
+* **datatype** - Denotes the type of field used for user input. Options: string, number, datetime, text, singlevaluelist, multivaluelist
+    * string: A string of characters without line breaks. Represented in an HTML from using an <input> tag
+    * number: A numeric value. Represented in an HTML from using an <input> tag
+    * datetime: The input generated must be able to transform into a valid ISO 8601 date. Represented in an HTML from using <input> tags
+    * text: A string of characters that may contain line breaks. Represented in an HTML from using an <textarea> tag
+    * singlevaluelist: A set of predefined values (specified in this response) where only one value may be selected. Represented in an HTML from using the <select> and <option> tags
+    * multivaluelist: A set of predefined values (specified in this response) where several values may be selected. Represented in an HTML from using the <select multiple="multiple"> and <option> tags
+* **required** - Setting true means that the value is required to submit service request.  Options: true, false.
+* **datatype\_description** - A description of the datatype which helps the user provide their input.
+* **order** - The sort order that the attributes will be presented to the user. 1 is shown first.  Options: Any positive integer not used for other attributes in the same service\_code.
+* **description** - A description of the attribute field with instructions for the user to find and identify the requested information.
+* **values** - A container for a list of predefined options for singlevaluelist or multivaluelist. Required if datatype is set to singlevaluelist or multivaluelist.
+* **value** - A container for a predefined option (key and name) for singlevaluelist or multivaluelist.
+* **key** - The unique identifier associated with an option for singlevaluelist or multivaluelist. This is analogous to the value attribute in an html option tag.
+* **name** - The human readable title of an option for singlevaluelist or multivaluelist. This is analogous to the innerhtml text node of an html option tag.
 
 **Possible Errors**
 
+* **404** - service\_code or jurisdiction\_id provided were not found (specify in error response).
+* **400** - service\_code or jurisdiction\_id was not provided (specify in error response).
+* **400** - General service error (Anything that fails during service list processing. The client will need to notify us).
 
 **Example**
 
 	GET http://example.gov/open311/v2/services/{id}.{format}
 
+	<?xml version="1.0" encoding="utf-8"?>
+	<service_definition>
+		<service_code>DMV66</service_code>	
+		<attributes>
+			<attribute>
+				<variable>true</variable>
+				<code>WHISHETN</code>
+				<datatype>singlevaluelist</datatype>
+				<required>true</required>
+				<datatype_description></datatype_description>		
+				<order>1</order>	
+				<description>What is the ticket/tag/DL number?</description>
+				<values>
+					<value>
+						<key>123</key>
+						<name>Ford</name>
+					</value>
+					<value>
+						<key>124</key>
+						<name>Chrysler</name>
+					</value>			
+				</values>
+			</attribute>	
+		</attributes>
+	</service_definition>
+	
+	-- OR --
+	
 	{
-		"service": {
-			"id": 1,
-			"name": "...",
-			"description": "..."
-		}
+	  "service_code":"DMV66",
+	  "attributes":[
+	    {
+	      "variable":true,
+	      "code":"WHISHETN",
+	      "datatype":"singlevaluelist",
+	      "required":true,
+	      "datatype_description":null,
+	      "order":1,
+	      "description":"What is the ticket/tag/DL number?",
+	      "values":[
+	        {
+	          "key":123,
+	          "name":"Ford"
+	        },
+	        {
+	          "key":124,
+	          "name":"Chrysler"
+	        }
+	      ]
+	    }
+	  ]
 	}
-
 open311.services.getList
 --
 
@@ -205,9 +275,9 @@ Provide a list of acceptable 311 service request types and their associated serv
 
 **Possible Errors**
 
-* **404** - service\_code or jurisdiction\_id was not found (specified in error response).
-* **400** - service\_code or jurisdiction\_id was not provided (specified in error response)
-* **400** - General Service Error (Any failure during create request processing, eg CRM is down. Client will need to notify us)
+* **404** -  jurisdiction\_id provided was not found (specify in error response).
+* **400** - jurisdiction\_id was not provided (specify in error response).
+* **400** - General service error (Anything that fails during service list processing. The client will need to notify us).
 
 **Example**
 

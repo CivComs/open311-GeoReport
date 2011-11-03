@@ -42,23 +42,55 @@
 			   {"name": "group", "description": "A category to group this service type within. This provides a way to group several service request types under one category such as \"sanitation\""}  
 			],
 			"possible_errors": [
-			   {"status_code": "404", "description": "service_code or jurisdiction_id was not found (specified in error response)."},
-			   {"status_code": "400", "description": "service_code or jurisdiction_id was not provided (specified in error response)"},
-			   {"status_code": "400", "description": "General Service Error (Any failure during create request processing, eg CRM is down. Client will need to notify us)"}
+			   {"status_code": "404", "description": " jurisdiction_id provided was not found (specify in error response)."},
+			   {"status_code": "400", "description": "jurisdiction_id was not provided (specify in error response)."},
+			   {"status_code": "400", "description": "General service error (Anything that fails during service list processing. The client will need to notify us)."}
 			],
 			"example" : "file://./api-methods-examples/open311.services.getList.json"
 		},
 		
 		"open311.services.getInfo": {
-			"description": "Returns basic information (as included in the _open311.services.getList_ method) as well any additional details that may be relevant to the service.",
+			"description": "Defines attributes associated with a service code. These attributes can be unique to the city/jurisdiction. This call is only necessary if the Service selected has metadata set as true from the GET Services response.",
 			"enabled": 1,
 			"documented": 1,
 			"requires_auth": 0,
 			"method": "GET",
-			"parameters": [
-				{ "name": "service_id", "description": "A valid service_id to get information about.", "required": 1 }
-			],
 			"slug" : "services/{id}.{format}",
+			"parameters": [
+				{ "name": "service_code", "description": "A valid service_code to get information about.", "required": 1 },
+				{ "name": "jurisdiction_id", "description": "A valid jurisdiction_id to get information about.", "required": 1 }
+			],
+			"response": [
+			   {"name": "service_definition", "description": "Root element."},
+			   {"name": "service_code", "description": "Returns the service_code associated with the definition, the same one submitted for this call."},
+			   {"name": "attributes", "description": "Container for attribute."},
+			   {"name": "variable", "description": "Options: true, false", "bullets": [
+			     "true denotes that user input is needed.",
+			     "false means the attribute is only used to present information to the user within the description field."
+			   ]},
+			   {"name": "code", "description": "A unique identifier for the attribute"},
+			   {"name": "datatype", "description": "Denotes the type of field used for user input. Options: string, number, datetime, text, singlevaluelist, multivaluelist", "bullets": [
+			     "string: A string of characters without line breaks. Represented in an HTML from using an <input> tag",
+			     "number: A numeric value. Represented in an HTML from using an <input> tag",
+			     "datetime: The input generated must be able to transform into a valid ISO 8601 date. Represented in an HTML from using <input> tags",
+			     "text: A string of characters that may contain line breaks. Represented in an HTML from using an <textarea> tag",
+			     "singlevaluelist: A set of predefined values (specified in this response) where only one value may be selected. Represented in an HTML from using the <select> and <option> tags",
+			     "multivaluelist: A set of predefined values (specified in this response) where several values may be selected. Represented in an HTML from using the <select multiple=\"multiple\"> and <option> tags"
+			   ]},
+			   {"name": "required", "description": "Setting true means that the value is required to submit service request.  Options: true, false."},
+			   {"name": "datatype_description", "description": "A description of the datatype which helps the user provide their input."},
+			   {"name": "order", "description": "The sort order that the attributes will be presented to the user. 1 is shown first.  Options: Any positive integer not used for other attributes in the same service_code."},
+			   {"name": "description", "description": "A description of the attribute field with instructions for the user to find and identify the requested information."},
+			   {"name": "values", "description": "A container for a list of predefined options for singlevaluelist or multivaluelist. Required if datatype is set to singlevaluelist or multivaluelist."},
+			   {"name": "value", "description": "A container for a predefined option (key and name) for singlevaluelist or multivaluelist."},
+			   {"name": "key", "description": "The unique identifier associated with an option for singlevaluelist or multivaluelist. This is analogous to the value attribute in an html option tag."},
+			   {"name": "name", "description": "The human readable title of an option for singlevaluelist or multivaluelist. This is analogous to the innerhtml text node of an html option tag."}
+			],
+			"possible_errors": [
+			   {"status_code": "404", "description": "service_code or jurisdiction_id provided were not found (specify in error response)."},
+			   {"status_code": "400", "description": "service_code or jurisdiction_id was not provided (specify in error response)."},
+			   {"status_code": "400", "description": "General service error (Anything that fails during service list processing. The client will need to notify us)."}
+			],
 			"example" : "file://./api-methods-examples/open311.services.getInfo.json"
 		},
 
