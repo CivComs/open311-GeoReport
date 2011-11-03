@@ -181,24 +181,6 @@ provide a list of acceptable 311 service request types and their associated serv
 			<keywords>lorem, ipsum, dolor</keywords>
 			<group>sanitation</group>
 		</service>
-		<service>
-			<service_code>002</service_code>
-			<metadata>true</metadata>
-			<type>realtime</type>
-			<keywords>lorem, ipsum, dolor</keywords>
-			<group>street</group>
-			<service_name>Construction plate shifted</service_name>
-			<description>Metal construction plate covering the street or sidewalk has been moved.</description>
-		</service>
-		<service>
-			<service_code>003</service_code>
-			<metadata>true</metadata>
-			<type>realtime</type>
-			<keywords>lorem, ipsum, dolor</keywords>
-			<group>street</group>
-			<service_name>Curb or curb ramp defect</service_name>
-			<description>Sidewalk curb or ramp has problems such as cracking, missing pieces, holes, and/or chipped curb.</description>
-		</service>
 	</services>
 	
 	-- OR --
@@ -212,24 +194,6 @@ provide a list of acceptable 311 service request types and their associated serv
 	    "type":"realtime",
 	    "keywords":"lorem, ipsum, dolor",
 	    "group":"sanitation"
-	  },
-	  {
-	    "service_code":002,
-	    "metadata":true,
-	    "type":"realtime",
-	    "keywords":"lorem, ipsum, dolor",
-	    "group":"street",
-	    "service_name":"Construction plate shifted",
-	    "description":"Metal construction plate covering the street or sidewalk has been moved."
-	  },
-	  {
-	    "service_code":003,
-	    "metadata":true,
-	    "type":"realtime",
-	    "keywords":"lorem, ipsum, dolor",
-	    "group":"street",
-	    "service_name":"Curb or curb ramp defect",
-	    "description":"Sidewalk curb or ramp has problems such as cracking, missing pieces, holes, and/or chipped curb."
 	  }
 	]
 
