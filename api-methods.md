@@ -28,6 +28,9 @@ open311.incidents.getInfo
 **Response**
 
 
+**Possible Errors**
+
+
 **Example**
 
 	GET http://example.gov/open311/v2/requests/{id}.{format}
@@ -66,6 +69,9 @@ Report an incident for a given service. Returns a unique ID for the incident tha
 * All geographic data is expected to be using the unprojected [WGS84](http://spatialreference.org/ref/epsg/4326/) datum (read: plain old latitudes and longitudes).
 
 **Response**
+
+
+**Possible Errors**
 
 
 **Example**
@@ -114,6 +120,9 @@ Returns a list of incidents matching a search criteria as defined by the API req
 **Response**
 
 
+**Possible Errors**
+
+
 **Example**
 
 	GET http://example.gov/open311/v2/requests.{format}
@@ -145,6 +154,9 @@ Returns basic information (as included in the _open311.services.getList_ method)
 * **service\_id** - A valid service\_id to get information about. - _Required_
 
 **Response**
+
+
+**Possible Errors**
 
 
 **Example**
@@ -184,7 +196,16 @@ Provide a list of acceptable 311 service request types and their associated serv
 * **metadata** - Possible values: true, false
     * true: This service request type requires additional metadata so the client will need to make a call to the Service Definition method
     * false: No additional information is required and a call to the Service Definition method is not needed.
+* **type** - Possible values: realtime, batch, blackbox
+    * realtime: The service request ID will be returned immediately after the service request is submitted.
+    * batch: A token will be returned immediately after the service request is submitted. This token can then be later used to return the service request ID.
+    * blackbox: No service request ID will be returned after the service request is submitted.
+* **keywords** - A comma separated list of tags or keywords to help users identify the request type. This can provide synonyms of the service\_name and group.
+* **group** - A category to group this service type within. This provides a way to group several service request types under one category such as "sanitation"
 
+**Possible Errors**
+
+* **404** - service\_code or jurisdiction\_id was not found (specified in error response).* **400** - service\_code or jurisdiction\_id was not provided (specified in error response)* **400** - General Service Error (Any failure during create request processing, eg CRM is down. Client will need to notify us)
 **Example**
 
 	GET http://example.gov/open311/v2/services.{format}
@@ -236,6 +257,9 @@ Return a list of valid statuses for incidents. The types of statuses and their m
 **Response**
 
 
+**Possible Errors**
+
+
 **Example**
 
 	GET http://example.gov/open311/v2/{foo}
@@ -258,6 +282,9 @@ Returns a list of geographic prefixes that may be used to query for incident rep
 * **per_page** - Number of results to return per page. If this argument is omitted, it defaults to 100. The maximum allowed value is left to the discretion of individual cities.
 
 **Response**
+
+
+**Possible Errors**
 
 
 **Example**

@@ -30,7 +30,21 @@
 			       "true: This service request type requires additional metadata so the client will need to make a call to the Service Definition method",
 			       "false: No additional information is required and a call to the Service Definition method is not needed."
 			     ]
-			   }
+			   },
+			   {"name": "type", "description": "Possible values: realtime, batch, blackbox", "bullets":
+			     [
+			       "realtime: The service request ID will be returned immediately after the service request is submitted.",
+			       "batch: A token will be returned immediately after the service request is submitted. This token can then be later used to return the service request ID.",
+			       "blackbox: No service request ID will be returned after the service request is submitted."
+			     ]
+			   },
+			   {"name": "keywords", "description": "A comma separated list of tags or keywords to help users identify the request type. This can provide synonyms of the service_name and group."},
+			   {"name": "group", "description": "A category to group this service type within. This provides a way to group several service request types under one category such as \"sanitation\""}  
+			],
+			"possible_errors": [
+			   {"status_code": "404", "description": "service_code or jurisdiction_id was not found (specified in error response)."},
+			   {"status_code": "400", "description": "service_code or jurisdiction_id was not provided (specified in error response)"},
+			   {"status_code": "400", "description": "General Service Error (Any failure during create request processing, eg CRM is down. Client will need to notify us)"}
 			],
 			"example" : "file://./api-methods-examples/open311.services.getList.json"
 		},

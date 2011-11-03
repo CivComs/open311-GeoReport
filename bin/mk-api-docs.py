@@ -166,6 +166,24 @@ if __name__ == '__main__':
                         out.write("\n")
 
             out.write("\n")
+            
+            """
+            possible errors
+            """
+
+            out.write("**Possible Errors**\n\n")
+
+            if details.get('possible_errors', False):
+        
+                for p in details['possible_errors']:
+
+                    # guh...
+                    name = p['status_code'].replace("_", "\_")
+                    desc = p['description'].replace("_", "\_")
+                
+                    out.write("* **%s** - %s" % (name, desc))
+
+            out.write("\n")
 
             """
             example
