@@ -181,7 +181,7 @@ if __name__ == '__main__':
                     name = e['status_code'].replace("_", "\_")
                     desc = e['description'].replace("_", "\_")
                 
-                    out.write("* **%s** | %s" % (name, desc))
+                    out.write("* **%s** - %s" % (name, desc))
                     
                     out.write("\n")
 

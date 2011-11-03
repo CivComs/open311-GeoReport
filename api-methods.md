@@ -205,9 +205,9 @@ Provide a list of acceptable 311 service request types and their associated serv
 
 **Possible Errors**
 
-* **404** | service\_code or jurisdiction\_id was not found (specified in error response).
-* **400** | service\_code or jurisdiction\_id was not provided (specified in error response)
-* **400** | General Service Error (Any failure during create request processing, eg CRM is down. Client will need to notify us)
+* **404** - service\_code or jurisdiction\_id was not found (specified in error response).
+* **400** - service\_code or jurisdiction\_id was not provided (specified in error response)
+* **400** - General Service Error (Any failure during create request processing, eg CRM is down. Client will need to notify us)
 
 **Example**
 
