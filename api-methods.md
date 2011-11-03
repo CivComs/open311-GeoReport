@@ -21,9 +21,7 @@ open311.incidents.getInfo
 
 **Notes**
 
-* All dates are recorded using the [W3C DateTime format](http://www.w3.org/TR/NOTE-datetime) format.
-
-* All geographic data is returned using the unprojected [WGS84](http://spatialreference.org/ref/epsg/4326/) datum (read: plain old latitudes and longitudes).
+* TODO: port documentation from GET Service Requests at http://wiki.open311.org/GeoReport_v2
 
 **Response**
 
@@ -131,24 +129,15 @@ Returns a list of incidents matching a search criteria as defined by the API req
 
 **Parameters**
 
-* **service\_id** - The unique ID of the service type to search for. Multiple services may be passed in as a comma-separated list.
-* **incident\_id** - The unique ID of the incident to search for. Multiple incidents may be passed in as a comma-separated list.
-* **status\_id** - The unique ID of a status type to search for. Multiple statuses may be passed in as a comma-separated list.
-* **created** - The date or date range (see [api.md](https://github.com/straup/open311-simple/blob/master/api.md) for details) of when an incident was reported.
-* **modified** - The date or date range (see [api.md](https://github.com/straup/open311-simple/blob/master/api.md) for details) of when an incident was last modified.
-* **where** - A geopgraphic location or extent (see [api.md]((https://github.com/straup/open311-simple/blob/master/api.md) for details) for details) in which to scope the query.
+* **** - 
 * **page** - The page of results to return. If this argument is omitted, it defaults to 1.
 * **per_page** - Number of results to return per page. If this argument is omitted, it defaults to 100. The maximum allowed value is left to the discretion of individual cities.
 
 **Notes**
 
-* All dates should be passed to the API (and returned in results) using the [W3C DateTime format](http://www.w3.org/TR/NOTE-datetime).
+* NOT YET ported from GeoReport v2 Docs (GET Service Requests)
 
-* All geographic data should be passed to the API using the unprojected [WGS84](http://spatialreference.org/ref/epsg/4326/) datum (read: plain old latitudes and longitudes).
-
-* If called with a valid OAuth token and signature then the query will be scoped to the user associated with that token.
-
-* Parameterless searches are not permitted. You must define at least one search criteria.
+* GeoReport v2 does offer some of the functionality described in open311-simple.incidents.search, with the exception of 'where'
 
 **Response**
 
@@ -186,6 +175,10 @@ Defines attributes associated with a service code. These attributes can be uniqu
 
 * **service\_code** - A valid service\_code to get information about. - _Required_
 * **jurisdiction\_id** - A valid jurisdiction\_id to get information about. - _Required_
+
+**Notes**
+
+* maps to GET Service Definition in GeoReport v2
 
 **Response**
 
@@ -289,6 +282,10 @@ Provide a list of acceptable 311 service request types and their associated serv
 * **page** - The page of results to return. If this argument is omitted, it defaults to 1.
 * **per_page** - Number of results to return per page. If this argument is omitted, it defaults to 100. The maximum allowed value is left to the discretion of individual cities.
 
+**Notes**
+
+* maps to GET Service List in GeoReport v2
+
 **Response**
 
 * **services** - Root element.
@@ -360,6 +357,10 @@ Return a list of valid statuses for incidents. The types of statuses and their m
 * **page** - The page of results to return. If this argument is omitted, it defaults to 1.
 * **per_page** - Number of results to return per page. If this argument is omitted, it defaults to 100. The maximum allowed value is left to the discretion of individual cities.
 
+**Notes**
+
+* NOT represented in GeoReport v2
+
 **Response**
 
 
@@ -386,6 +387,10 @@ Returns a list of geographic prefixes that may be used to query for incident rep
 
 * **page** - The page of results to return. If this argument is omitted, it defaults to 1.
 * **per_page** - Number of results to return per page. If this argument is omitted, it defaults to 100. The maximum allowed value is left to the discretion of individual cities.
+
+**Notes**
+
+* NOT currently represented in GeoReport v2
 
 **Response**
 

@@ -47,7 +47,10 @@
 			   {"status_code": "400", "description": "jurisdiction_id was not provided (specify in error response)."},
 			   {"status_code": "400", "description": "General service error (Anything that fails during service list processing. The client will need to notify us)."}
 			],
-			"example" : "file://./api-methods-examples/open311.services.getList.json"
+			"example" : "file://./api-methods-examples/open311.services.getList.json",
+			"notes": [
+			   "maps to GET Service List in GeoReport v2"
+			]
 		},
 		
 		"open311.services.getInfo": {
@@ -92,7 +95,10 @@
 			   {"status_code": "400", "description": "service_code or jurisdiction_id was not provided (specify in error response)."},
 			   {"status_code": "400", "description": "General service error (Anything that fails during service list processing. The client will need to notify us)."}
 			],
-			"example" : "file://./api-methods-examples/open311.services.getInfo.json"
+			"example" : "file://./api-methods-examples/open311.services.getInfo.json",
+			"notes": [
+			   "maps to GET Service Definition in GeoReport v2"
+			]
 		},
 
 		"open311.statuses.getList": {
@@ -103,7 +109,10 @@
 			"method": "GET",
 			"slug": "{foo}",
 			"requires_auth": 0,
-			"example" : "file://./api-methods-examples/open311.incidents.getStatuses.json"
+			"example" : "file://./api-methods-examples/open311.incidents.getStatuses.json",
+			"notes": [
+			   "NOT represented in GeoReport v2"
+			]
 		},
 				
 		"open311.incidents.report": {
@@ -162,8 +171,7 @@
 				{ "name": "incident_id", "description": "The unique ID of the incident to get information about.", "required": 1 }
 			],
 			"notes": [
-				"All dates are recorded using the [W3C DateTime format](http://www.w3.org/TR/NOTE-datetime) format.",
-				"All geographic data is returned using the unprojected [WGS84](http://spatialreference.org/ref/epsg/4326/) datum (read: plain old latitudes and longitudes)."
+				"TODO: port documentation from GET Service Requests at http://wiki.open311.org/GeoReport_v2"
 			],
 			"example" : "file://./api-methods-examples/open311.incidents.getInfo"
 		},
@@ -177,18 +185,11 @@
 			"slug" : "requests.{format}",
 			"requires_auth": 0,
 			"parameters": [
-				{ "name": "service_id", "description": "The unique ID of the service type to search for. Multiple services may be passed in as a comma-separated list.", "required": 0 },
-				{ "name": "incident_id", "description": "The unique ID of the incident to search for. Multiple incidents may be passed in as a comma-separated list.", "required": 0 },
-				{ "name": "status_id", "description": "The unique ID of a status type to search for. Multiple statuses may be passed in as a comma-separated list.", "required": 0 },
-				{ "name": "created", "description": "The date or date range (see [api.md](https://github.com/straup/open311-simple/blob/master/api.md) for details) of when an incident was reported.", "required": 0 },
-				{ "name": "modified", "description": "The date or date range (see [api.md](https://github.com/straup/open311-simple/blob/master/api.md) for details) of when an incident was last modified.", "required": 0 },
-				{ "name": "where", "description": "A geopgraphic location or extent (see [api.md]((https://github.com/straup/open311-simple/blob/master/api.md) for details) for details) in which to scope the query.", "required": 0 }
+				{ "name": "", "description": "", "required": 0 }
 			],
 			"notes": [
-				"All dates should be passed to the API (and returned in results) using the [W3C DateTime format](http://www.w3.org/TR/NOTE-datetime).",
-				"All geographic data should be passed to the API using the unprojected [WGS84](http://spatialreference.org/ref/epsg/4326/) datum (read: plain old latitudes and longitudes).",
-				"If called with a valid OAuth token and signature then the query will be scoped to the user associated with that token.",
-				"Parameterless searches are not permitted. You must define at least one search criteria."
+				"NOT YET ported from GeoReport v2 Docs (GET Service Requests)",
+				"GeoReport v2 does offer some of the functionality described in open311-simple.incidents.search, with the exception of 'where'"
 			],
 			"example": "file://./api-methods-examples/open311.incidents.search.json"
 		},
@@ -201,7 +202,10 @@
 			"paginated": 1,
 			"method": "GET",
 			"slug" : "{foo}",
-			"example" : "file://./api-methods-examples/open311.where.getList.json"
+			"example" : "file://./api-methods-examples/open311.where.getList.json",
+			"notes": [
+			   "NOT currently represented in GeoReport v2"
+			]
 		}
 		
 	}
