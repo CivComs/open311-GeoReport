@@ -6,10 +6,39 @@ _This file is auto-generated using the [api-methods.json](https://github.com/str
 open311.incidents
 ==
 
+open311.incidents.getIdFromToken
+--
+
+Corresponds to [GET request_id from a token](http://wiki.open311.org/GeoReport_v2#GET_request_id_from_a_token) in GeoReport v2
+
+**Method**
+
+[GET](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html)
+
+**Parameters**
+
+* **** -  - _Required_
+
+**Notes**
+
+* TODO: port documentation from GeoReport v2
+
+* (seems like this could/should be rolled in to incidents.getInfo, w/ token as an optional parameter) --NG
+
+**Response**
+
+
+**Possible Errors**
+
+
+**Example**
+
+	GET http://example.gov/open311/v2/requests/{id}.{format}
+
 open311.incidents.getInfo
 --
 
-
+Corresponds to [GET Service Requests](http://wiki.open311.org/GeoReport_v2#GET_Service_Requests) in GeoReport v2
 
 **Method**
 
@@ -21,7 +50,7 @@ open311.incidents.getInfo
 
 **Notes**
 
-* TODO: port documentation from GET Service Requests at http://wiki.open311.org/GeoReport_v2
+* TODO: port documentation from GeoReport v2
 
 **Response**
 
@@ -47,7 +76,7 @@ open311.incidents.report
 
 **This method requires authentication**
 
-Create service requests.
+Create service requests. Corresponds to [POST Service Request](http://wiki.open311.org/GeoReport_v2#POST_Service_Request) in GeoReport v2
 
 **Method**
 
@@ -121,7 +150,7 @@ Create service requests.
 open311.incidents.search
 --
 
-Returns a list of incidents matching a search criteria as defined by the API request.
+Returns a list of incidents matching a search criteria as defined by the API request.  Corresponds to [GET Service Requests](http://wiki.open311.org/GeoReport_v2#GET_Service_Requests) in GeoReport v2
 
 **Method**
 
@@ -135,7 +164,7 @@ Returns a list of incidents matching a search criteria as defined by the API req
 
 **Notes**
 
-* NOT YET ported from GeoReport v2 Docs (GET Service Requests)
+* TO DO: port from GeoReport v2
 
 * GeoReport v2 does offer some of the functionality described in open311-simple.incidents.search, with the exception of 'where'
 
@@ -165,7 +194,7 @@ open311.services
 open311.services.getInfo
 --
 
-Defines attributes associated with a service code. These attributes can be unique to the city/jurisdiction. This call is only necessary if the Service selected has metadata set as true from the GET Services response.
+Defines attributes associated with a service code. These attributes can be unique to the city/jurisdiction. This call is only necessary if the Service selected has metadata set as true from the GET Services response.  Corresponds to [GET Service Definition](http://wiki.open311.org/GeoReport_v2#GET_Service_Definition) in GeoReport v2
 
 **Method**
 
@@ -175,10 +204,6 @@ Defines attributes associated with a service code. These attributes can be uniqu
 
 * **service\_code** - A valid service\_code to get information about. - _Required_
 * **jurisdiction\_id** - A valid jurisdiction\_id to get information about. - _Required_
-
-**Notes**
-
-* maps to GET Service Definition in GeoReport v2
 
 **Response**
 
@@ -270,7 +295,7 @@ Defines attributes associated with a service code. These attributes can be uniqu
 open311.services.getList
 --
 
-Provide a list of acceptable 311 service request types and their associated service codes. These request types can be unique to the city/jurisdiction
+Provide a list of acceptable 311 service request types and their associated service codes. These request types can be unique to the city/jurisdiction.  Corresponds to [GET Service List](http://wiki.open311.org/GeoReport_v2#GET_Service_List) in GeoReport v2
 
 **Method**
 
@@ -281,10 +306,6 @@ Provide a list of acceptable 311 service request types and their associated serv
 * **jurisdiction\_id** - A valid jurisdiction\_id to get information about. - _Required_
 * **page** - The page of results to return. If this argument is omitted, it defaults to 1.
 * **per_page** - Number of results to return per page. If this argument is omitted, it defaults to 100. The maximum allowed value is left to the discretion of individual cities.
-
-**Notes**
-
-* maps to GET Service List in GeoReport v2
 
 **Response**
 
@@ -346,7 +367,7 @@ open311.statuses
 open311.statuses.getList
 --
 
-Return a list of valid statuses for incidents. The types of statuses and their meaning are left to the discretion of individual cities.
+Return a list of valid statuses for incidents. The types of statuses and their meaning are left to the discretion of individual cities.  **NOT represented** in GeoReport v2
 
 **Method**
 
@@ -356,10 +377,6 @@ Return a list of valid statuses for incidents. The types of statuses and their m
 
 * **page** - The page of results to return. If this argument is omitted, it defaults to 1.
 * **per_page** - Number of results to return per page. If this argument is omitted, it defaults to 100. The maximum allowed value is left to the discretion of individual cities.
-
-**Notes**
-
-* NOT represented in GeoReport v2
 
 **Response**
 
@@ -377,7 +394,7 @@ open311.where
 open311.where.getList
 --
 
-Returns a list of geographic prefixes that may be used to query for incident reports using the 'open311.incidents.search' API method.
+Returns a list of geographic prefixes that may be used to query for incident reports using the 'open311.incidents.search' API method.  **NOT represented** in GeoReport v2
 
 **Method**
 
@@ -387,10 +404,6 @@ Returns a list of geographic prefixes that may be used to query for incident rep
 
 * **page** - The page of results to return. If this argument is omitted, it defaults to 1.
 * **per_page** - Number of results to return per page. If this argument is omitted, it defaults to 100. The maximum allowed value is left to the discretion of individual cities.
-
-**Notes**
-
-* NOT currently represented in GeoReport v2
 
 **Response**
 

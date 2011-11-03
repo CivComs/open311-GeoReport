@@ -10,7 +10,7 @@
 	"methods": {
 	
 		"open311.services.getList": {
-			"description": "Provide a list of acceptable 311 service request types and their associated service codes. These request types can be unique to the city/jurisdiction",
+			"description": "Provide a list of acceptable 311 service request types and their associated service codes. These request types can be unique to the city/jurisdiction.  Corresponds to [GET Service List](http://wiki.open311.org/GeoReport_v2#GET_Service_List) in GeoReport v2",
 			"enabled": 1,
 			"documented": 1,
 			"requires_auth": 0,
@@ -47,14 +47,11 @@
 			   {"status_code": "400", "description": "jurisdiction_id was not provided (specify in error response)."},
 			   {"status_code": "400", "description": "General service error (Anything that fails during service list processing. The client will need to notify us)."}
 			],
-			"example" : "file://./api-methods-examples/open311.services.getList.json",
-			"notes": [
-			   "maps to GET Service List in GeoReport v2"
-			]
+			"example" : "file://./api-methods-examples/open311.services.getList.json"
 		},
 		
 		"open311.services.getInfo": {
-			"description": "Defines attributes associated with a service code. These attributes can be unique to the city/jurisdiction. This call is only necessary if the Service selected has metadata set as true from the GET Services response.",
+			"description": "Defines attributes associated with a service code. These attributes can be unique to the city/jurisdiction. This call is only necessary if the Service selected has metadata set as true from the GET Services response.  Corresponds to [GET Service Definition](http://wiki.open311.org/GeoReport_v2#GET_Service_Definition) in GeoReport v2",
 			"enabled": 1,
 			"documented": 1,
 			"requires_auth": 0,
@@ -95,28 +92,22 @@
 			   {"status_code": "400", "description": "service_code or jurisdiction_id was not provided (specify in error response)."},
 			   {"status_code": "400", "description": "General service error (Anything that fails during service list processing. The client will need to notify us)."}
 			],
-			"example" : "file://./api-methods-examples/open311.services.getInfo.json",
-			"notes": [
-			   "maps to GET Service Definition in GeoReport v2"
-			]
+			"example" : "file://./api-methods-examples/open311.services.getInfo.json"
 		},
 
 		"open311.statuses.getList": {
-			"description": "Return a list of valid statuses for incidents. The types of statuses and their meaning are left to the discretion of individual cities.",
+			"description": "Return a list of valid statuses for incidents. The types of statuses and their meaning are left to the discretion of individual cities.  **NOT represented** in GeoReport v2",
 			"enabled": 1,
 			"documented": 1,
 			"paginated": 1,
 			"method": "GET",
 			"slug": "{foo}",
 			"requires_auth": 0,
-			"example" : "file://./api-methods-examples/open311.incidents.getStatuses.json",
-			"notes": [
-			   "NOT represented in GeoReport v2"
-			]
+			"example" : "file://./api-methods-examples/open311.incidents.getStatuses.json"
 		},
 				
 		"open311.incidents.report": {
-			"description": "Create service requests.",
+			"description": "Create service requests. Corresponds to [POST Service Request](http://wiki.open311.org/GeoReport_v2#POST_Service_Request) in GeoReport v2",
 			"enabled": 1,
 			"documented": 1,
 			"method": "POST",
@@ -161,7 +152,7 @@
 		},
 		
 		"open311.incidents.getInfo": {
-			"description": "",
+			"description": "Corresponds to [GET Service Requests](http://wiki.open311.org/GeoReport_v2#GET_Service_Requests) in GeoReport v2",
 			"enabled": 1,
 			"documented": 1,
 			"requires_auth": 0,
@@ -171,13 +162,30 @@
 				{ "name": "incident_id", "description": "The unique ID of the incident to get information about.", "required": 1 }
 			],
 			"notes": [
-				"TODO: port documentation from GET Service Requests at http://wiki.open311.org/GeoReport_v2"
+				"TODO: port documentation from GeoReport v2"
+			],
+			"example" : "file://./api-methods-examples/open311.incidents.getInfo"
+		},
+		
+		"open311.incidents.getIdFromToken": {
+			"description": "Corresponds to [GET request_id from a token](http://wiki.open311.org/GeoReport_v2#GET_request_id_from_a_token) in GeoReport v2",
+			"enabled": 1,
+			"documented": 1,
+			"requires_auth": 0,
+			"method": "GET",
+			"slug" : "requests/{id}.{format}",
+			"parameters": [
+				{ "name": "", "description": "", "required": 1 }
+			],
+			"notes": [
+				"TODO: port documentation from GeoReport v2",
+				"(seems like this could/should be rolled in to incidents.getInfo, w/ token as an optional parameter) --NG"
 			],
 			"example" : "file://./api-methods-examples/open311.incidents.getInfo"
 		},
 		
 		"open311.incidents.search": {
-			"description": "Returns a list of incidents matching a search criteria as defined by the API request.",
+			"description": "Returns a list of incidents matching a search criteria as defined by the API request.  Corresponds to [GET Service Requests](http://wiki.open311.org/GeoReport_v2#GET_Service_Requests) in GeoReport v2",
 			"enabled": 1,
 			"documented": 1,
 			"paginated": 1,
@@ -188,24 +196,21 @@
 				{ "name": "", "description": "", "required": 0 }
 			],
 			"notes": [
-				"NOT YET ported from GeoReport v2 Docs (GET Service Requests)",
+				"TO DO: port from GeoReport v2",
 				"GeoReport v2 does offer some of the functionality described in open311-simple.incidents.search, with the exception of 'where'"
 			],
 			"example": "file://./api-methods-examples/open311.incidents.search.json"
 		},
 
 		"open311.where.getList": {
-			"description": "Returns a list of geographic prefixes that may be used to query for incident reports using the 'open311.incidents.search' API method.",
+			"description": "Returns a list of geographic prefixes that may be used to query for incident reports using the 'open311.incidents.search' API method.  **NOT represented** in GeoReport v2",
 			"enabled": 1,
 			"documented": 1,
 			"requires_auth": 0,
 			"paginated": 1,
 			"method": "GET",
 			"slug" : "{foo}",
-			"example" : "file://./api-methods-examples/open311.where.getList.json",
-			"notes": [
-			   "NOT currently represented in GeoReport v2"
-			]
+			"example" : "file://./api-methods-examples/open311.where.getList.json"
 		}
 		
 	}
