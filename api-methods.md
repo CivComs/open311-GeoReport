@@ -49,7 +49,7 @@ open311.incidents.report
 
 **This method requires authentication**
 
-Report an incident for a given service. Returns a unique ID for the incident that may be used to call the _open311.incidents.status_ API method.
+Create service requests.
 
 **Method**
 
@@ -57,10 +57,22 @@ Report an incident for a given service. Returns a unique ID for the incident tha
 
 **Parameters**
 
-* **service\_id** - A valid service\_id as defined by the city operating the Open 311 (Simple) API - _Required_
-* **latitude** - A valid WGS84 coordinate - _Required_
-* **longitude** - A valid WGS84 coordinate - _Required_
-* **description** - A free-form text field in which the user reporting the incident may leave additional notes.
+* **jurisdiction\_id** - A valid jurisdiction as defined by the city operating the Open311API - _Required_
+* **service\_code** - Obtained from open311.services.getInfo - _Required_
+* **location** - Either lat & long or address\_string or address\_id must be submitted - _Required_
+* **attribute** - An array of key/value responses based on Service Definitions. This takes the form of attribute[code]=value where multiple code/value pairs can be specified as well as multiple values for the same code in the case of a multivaluelist datatype (attribute[code1][]=value1&attribute[code1][]=value2&attribute[code1][]=value3) - see example.  only required if the service\_code requires a service definition with required fields.
+* **lat** - Latitude using the (WGS84) projection.
+* **long** - Longitude using the (WGS84) projection.
+* **address\_string** - Human entered address or description of location. This should be written from most specific to most general geographic unit, eg address number or cross streets, street name, neighborhood/district, city/town/village, county, postal code. This is required if no lat/lon is provided.
+* **address\_id** - The internal address ID used by a jurisdictions master address repository or other addressing system.
+* **email** - The email address of the person submitting the request.
+* **device\_id** - The unique device ID of the device submitting the request. This is usually only used for mobile devices. For example, Android devices use TelephonyManager.getDeviceId() and iPhone's use [UIDevice currentDevice].uniqueIdentifier
+* **account\_id** - The unique ID for the user account of the person submitting the request.
+* **first\_name** - The first name of the person submitting the request.
+* **last\_name** - The family name of the person submitting the request.
+* **phone** - The phone number of the person submitting the request.
+* **description** - A full description of the request or report being submitted. This may contain line breaks, but not html or code. Otherwise, this is free form text limited to 4,000 characters.
+* **media\_url** - A URL to media associated with the request, eg an image. A convention for parsing media from this URL has yet to be established, so currently it will be done on a case by case basis. For example, if a jurisdiction accepts photos submitted via Twitpic.com, then clients can parse the page at the Twitpic URL for the image given the conventions of Twitpic.com. This could also be a URL to a media RSS feed where the clients can parse for media in a more structured way.
 
 **Notes**
 
@@ -70,22 +82,43 @@ Report an incident for a given service. Returns a unique ID for the incident tha
 
 **Response**
 
+* **service\_requests** - Root element.
+* **request** - Container for service\_request\_id, token, service\_notice, account\_id.
+* **service\_request\_id** - The unique ID of the service request created. This will not be returned if token is returned.
+* **token** - If returned, use this to call GET request\_id from a token This will not be returned if service\_request\_id is returned.
+* **service\_notice** - Information about the action expected to fulfill the request or otherwise address the information reported. (may not be returned).
+* **account\_id** - The unique ID for the user account of the person submitting the request. (may not be returned).
 
 **Possible Errors**
 
+* **404** - service\_code or jurisdiction\_id was not found (specified in error response).
+* **400** - service\_code or jurisdiction\_id was not provided (specified in error response).
+* **400** - General Service Error (Any failure during create request processing, eg CRM is down. Client will need to notify us).
 
 **Example**
 
-	POST http://example.gov/open311/v2/requests.xml
+	POST http://example.gov/open311/v2/requests.{format}
 
-	{
-		"incident": {
-			"id": 999,
-			"service_id": 2,
-			"status_id": 1,
-			"reported": "..."
-		}
-	}
+	<?xml version="1.0" encoding="utf-8"?>
+	<service_requests>
+		<request>
+			<service_request_id>293944</service_request_id>
+			<service_notice>
+				The City will inspect and require the responsible party to correct within 24 hours and/or issue a Correction Notice or Notice of Violation of the Public Works Code
+			</service_notice>
+			<account_id/>
+		</request>
+	</service_requests>
+	
+	-- OR --
+	
+	[
+	  {
+	    "service_request_id":293944,
+	    "service_notice":"The City will inspect and require the responsible party to correct within 24 hours and/or issue a Correction Notice or Notice of Violation of the Public Works Code",
+	    "account_id":null
+	  }
+	]
 
 open311.incidents.search
 --

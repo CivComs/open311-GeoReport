@@ -3,7 +3,8 @@
 	"default_format": "xml",
 
 	"formats": [
-		"xml"
+		"xml",
+		"json"
 	],
 
 	"methods": {
@@ -106,18 +107,43 @@
 		},
 				
 		"open311.incidents.report": {
-			"description": "Report an incident for a given service. Returns a unique ID for the incident that may be used to call the _open311.incidents.status_ API method.",
+			"description": "Create service requests.",
 			"enabled": 1,
 			"documented": 1,
 			"method": "POST",
-			"slug" : "requests.xml",
+			"slug" : "requests.{format}",
 			"requires_auth": 1,
 			"parameters": [
-				{ "name": "service_id", "description": "A valid service_id as defined by the city operating the Open 311 (Simple) API", "required": 1 },
-				{ "name": "latitude", "description": "A valid WGS84 coordinate", "required": 1 },
-				{ "name": "longitude", "description": "A valid WGS84 coordinate", "required": 1 },
-				{ "name": "description", "description": "A free-form text field in which the user reporting the incident may leave additional notes.", "required": 0}
+				{ "name": "jurisdiction_id", "description": "A valid jurisdiction as defined by the city operating the Open311API", "required": 1 },
+				{ "name": "service_code", "description": "Obtained from open311.services.getInfo", "required": 1 },
+				{ "name": "location", "description": "Either lat & long or address_string or address_id must be submitted", "required": 1 },
+				{ "name": "attribute", "description": "An array of key/value responses based on Service Definitions. This takes the form of attribute[code]=value where multiple code/value pairs can be specified as well as multiple values for the same code in the case of a multivaluelist datatype (attribute[code1][]=value1&attribute[code1][]=value2&attribute[code1][]=value3) - see example.  only required if the service_code requires a service definition with required fields.", "required": 0},
+				{"name": "lat", "description": "Latitude using the (WGS84) projection.", "required": 0},
+				{"name": "long", "description": "Longitude using the (WGS84) projection.", "required": 0},
+				{"name": "address_string", "description": "Human entered address or description of location. This should be written from most specific to most general geographic unit, eg address number or cross streets, street name, neighborhood/district, city/town/village, county, postal code. This is required if no lat/lon is provided.", "required": 0},
+				{"name": "address_id", "description": "The internal address ID used by a jurisdictions master address repository or other addressing system.", "required": 0},
+				{"name": "email", "description": "The email address of the person submitting the request.", "required": 0 },
+				{"name": "device_id", "description": "The unique device ID of the device submitting the request. This is usually only used for mobile devices. For example, Android devices use TelephonyManager.getDeviceId() and iPhone's use [UIDevice currentDevice].uniqueIdentifier", "required": 0},
+				{"name": "account_id", "description": "The unique ID for the user account of the person submitting the request.", "required": 0},
+				{"name": "first_name", "description": "The first name of the person submitting the request.", "required": 0},
+				{"name": "last_name", "description": "The family name of the person submitting the request.", "required": 0},
+				{"name": "phone", "description": "The phone number of the person submitting the request.", "required": 0},
+				{"name": "description", "description": "A full description of the request or report being submitted. This may contain line breaks, but not html or code. Otherwise, this is free form text limited to 4,000 characters.", "required": 0},
+				{"name": "media_url", "description": "A URL to media associated with the request, eg an image. A convention for parsing media from this URL has yet to be established, so currently it will be done on a case by case basis. For example, if a jurisdiction accepts photos submitted via Twitpic.com, then clients can parse the page at the Twitpic URL for the image given the conventions of Twitpic.com. This could also be a URL to a media RSS feed where the clients can parse for media in a more structured way.", "required": 0}
 			],
+    "response": [
+			   {"name": "service_requests", "description": "Root element."},
+			   {"name": "request", "description": "Container for service_request_id, token, service_notice, account_id."},
+			   {"name": "service_request_id", "description": "The unique ID of the service request created. This will not be returned if token is returned."},
+			   {"name": "token", "description": "If returned, use this to call GET request_id from a token This will not be returned if service_request_id is returned."},
+			   {"name": "service_notice", "description": "Information about the action expected to fulfill the request or otherwise address the information reported. (may not be returned)."},
+			   {"name": "account_id", "description": "The unique ID for the user account of the person submitting the request. (may not be returned)."}
+			],
+			"possible_errors": [
+			   {"status_code": "404", "description": "service_code or jurisdiction_id was not found (specified in error response)."},
+			   {"status_code": "400", "description": "service_code or jurisdiction_id was not provided (specified in error response)."},
+			   {"status_code": "400", "description": "General Service Error (Any failure during create request processing, eg CRM is down. Client will need to notify us)."}
+			], 
 			"notes": [
 				"All dates should be passed in using the [W3C DateTime format](http://www.w3.org/TR/NOTE-datetime) format.",
 				"All geographic data is expected to be using the unprojected [WGS84](http://spatialreference.org/ref/epsg/4326/) datum (read: plain old latitudes and longitudes)."
