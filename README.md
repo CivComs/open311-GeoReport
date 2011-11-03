@@ -1,4 +1,4 @@
-Open 311 Simple
+Open311 GeoReport v2
 ==
 
 Introduction
@@ -10,5 +10,4 @@ following the model of straup's Open311-simple (https://github.com/straup/open31
 API
 --
 
-
-**Detailed notes and statements of bias are discussed in the [api.md](https://github.com/straup/open311-simple/blob/master/api.md) document.**
+**Detailed notes and statements of bias are discussed in the [api.md](https://github.com/CivComs/open311-GeoReportv2/blob/master/api.md) document.**
