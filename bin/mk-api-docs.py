@@ -161,7 +161,7 @@ if __name__ == '__main__':
                       
                       for b in p['bullets']:
                         
-                        out.write("<p>%s</p>" % b)
+                        out.write("<br />%s" % b)
 
                         out.write("\n")
 
