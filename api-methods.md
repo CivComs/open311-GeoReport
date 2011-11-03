@@ -33,8 +33,24 @@ Corresponds to [GET request_id from a token](http://wiki.open311.org/GeoReport_v
 
 **Example**
 
-	GET http://example.gov/open311/v2/requests/{id}.{format}
+	GET http://example.gov/open311/v2/tokens/{token_id}.{format}
 
+	<?xml version="1.0" encoding="utf-8"?>
+	<service_requests>
+		<request>
+			<service_request_id>638344</service_request_id>
+			<token>12345</token>
+		</request>
+	</service_requests>
+	
+	-- OR --
+	
+	[
+	  {
+	    "service_request_id":638344,
+	    "token":12345
+	  }
+	]
 open311.incidents.getInfo
 --
 

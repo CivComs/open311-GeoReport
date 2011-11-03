@@ -173,7 +173,7 @@
 			"documented": 1,
 			"requires_auth": 0,
 			"method": "GET",
-			"slug" : "requests/{id}.{format}",
+			"slug" : "tokens/{token_id}.{format}",
 			"parameters": [
 				{ "name": "", "description": "", "required": 1 }
 			],
@@ -181,7 +181,7 @@
 				"TODO: port documentation from GeoReport v2",
 				"(seems like this could/should be rolled in to incidents.getInfo, w/ token as an optional parameter) --NG"
 			],
-			"example" : "file://./api-methods-examples/open311.incidents.getInfo"
+			"example" : "file://./api-methods-examples/open311.incidents.getIdFromToken"
 		},
 		
 		"open311.incidents.search": {
