@@ -145,7 +145,7 @@ if __name__ == '__main__':
 
             out.write("**Example**\n\n")
 
-            out.write("\t%s http://example.gov/open311-simple/?method=%s\n\n" % (details['method'], fq_method))
+            out.write("\t%s http://example.gov/open311/v2/%s\n\n" % (details['method'], details['slug']))
 
             rsp = os.path.join(examples, "%s.json" % fq_method)
 

@@ -1,20 +1,21 @@
 {
 
-	"default_format": "json",
+	"default_format": "xml",
 
 	"formats": [
-		"json"
+		"xml"
 	],
 
 	"methods": {
 	
 		"open311.services.getList": {
-			"description": "Returns a list of services for which incidents may be reported. The types of services and their meaning are left to the discretion of individual cities.",
+			"description": "provide a list of acceptable 311 service request types and their associated service codes. These request types can be unique to the city/jurisdiction",
 			"enabled": 1,
 			"documented": 1,
 			"requires_auth": 0,
 			"paginated": 1,
 			"method": "GET",
+			"slug" : "services.{format}",
 			"example" : "file://./api-methods-examples/open311.services.getList.json"
 		},
 		
@@ -27,6 +28,7 @@
 			"parameters": [
 				{ "name": "service_id", "description": "A valid service_id to get information about.", "required": 1 }
 			],
+			"slug" : "services/{id}.{format}",
 			"example" : "file://./api-methods-examples/open311.services.getInfo.json"
 		},
 
@@ -36,6 +38,7 @@
 			"documented": 1,
 			"paginated": 1,
 			"method": "GET",
+			"slug": "{foo}",
 			"requires_auth": 0,
 			"example" : "file://./api-methods-examples/open311.incidents.getStatuses.json"
 		},
@@ -45,6 +48,7 @@
 			"enabled": 1,
 			"documented": 1,
 			"method": "POST",
+			"slug" : "requests.xml",
 			"requires_auth": 1,
 			"parameters": [
 				{ "name": "service_id", "description": "A valid service_id as defined by the city operating the Open 311 (Simple) API", "required": 1 },
@@ -65,6 +69,7 @@
 			"documented": 1,
 			"requires_auth": 0,
 			"method": "GET",
+			"slug" : "requests/{id}.{format}",
 			"parameters": [
 				{ "name": "incident_id", "description": "The unique ID of the incident to get information about.", "required": 1 }
 			],
@@ -81,6 +86,7 @@
 			"documented": 1,
 			"paginated": 1,
 			"method": "GET",
+			"slug" : "requests.{format}",
 			"requires_auth": 0,
 			"parameters": [
 				{ "name": "service_id", "description": "The unique ID of the service type to search for. Multiple services may be passed in as a comma-separated list.", "required": 0 },
@@ -106,6 +112,7 @@
 			"requires_auth": 0,
 			"paginated": 1,
 			"method": "GET",
+			"slug" : "{foo}",
 			"example" : "file://./api-methods-examples/open311.where.getList.json"
 		}
 		

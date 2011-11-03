@@ -28,7 +28,7 @@ open311.incidents.getInfo
 
 **Example**
 
-	GET http://example.gov/open311-simple/?method=open311.incidents.getInfo
+	GET http://example.gov/open311/v2/requests/{id}.{format}
 
 	{
 		"incident": {
@@ -66,7 +66,7 @@ Report an incident for a given service. Returns a unique ID for the incident tha
 
 **Example**
 
-	POST http://example.gov/open311-simple/?method=open311.incidents.report
+	POST http://example.gov/open311/v2/requests.xml
 
 	{
 		"incident": {
@@ -110,7 +110,7 @@ Returns a list of incidents matching a search criteria as defined by the API req
 
 **Example**
 
-	GET http://example.gov/open311-simple/?method=open311.incidents.search
+	GET http://example.gov/open311/v2/requests.{format}
 
 	{
 		"total": 2,
@@ -141,7 +141,7 @@ Returns basic information (as included in the _open311.services.getList_ method)
 
 **Example**
 
-	GET http://example.gov/open311-simple/?method=open311.services.getInfo
+	GET http://example.gov/open311/v2/services/{id}.{format}
 
 	{
 		"service": {
@@ -154,7 +154,7 @@ Returns basic information (as included in the _open311.services.getList_ method)
 open311.services.getList
 --
 
-Returns a list of services for which incidents may be reported. The types of services and their meaning are left to the discretion of individual cities.
+provide a list of acceptable 311 service request types and their associated service codes. These request types can be unique to the city/jurisdiction
 
 **Method**
 
@@ -168,18 +168,70 @@ Returns a list of services for which incidents may be reported. The types of ser
 
 **Example**
 
-	GET http://example.gov/open311-simple/?method=open311.services.getList
+	GET http://example.gov/open311/v2/services.{format}
 
-	{
-		"total": 3,
-		"per_page": 100,
-		"page": 1,
-		"services": [
-			{ "id": 1, "name": "..." },
-			{ "id": 2, "name": "..." },
-			{ "id": 3, "name": "..." }
-		]
-	}
+	<?xml version="1.0" encoding="utf-8"?>
+	<services>
+		<service>
+			<service_code>001</service_code>
+			<service_name>Cans left out 24x7</service_name>
+			<description>Garbage or recycling cans that have been left out for more than 24 hours after collection. Violators will be cited.</description>
+			<metadata>true</metadata>
+			<type>realtime</type>
+			<keywords>lorem, ipsum, dolor</keywords>
+			<group>sanitation</group>
+		</service>
+		<service>
+			<service_code>002</service_code>
+			<metadata>true</metadata>
+			<type>realtime</type>
+			<keywords>lorem, ipsum, dolor</keywords>
+			<group>street</group>
+			<service_name>Construction plate shifted</service_name>
+			<description>Metal construction plate covering the street or sidewalk has been moved.</description>
+		</service>
+		<service>
+			<service_code>003</service_code>
+			<metadata>true</metadata>
+			<type>realtime</type>
+			<keywords>lorem, ipsum, dolor</keywords>
+			<group>street</group>
+			<service_name>Curb or curb ramp defect</service_name>
+			<description>Sidewalk curb or ramp has problems such as cracking, missing pieces, holes, and/or chipped curb.</description>
+		</service>
+	</services>
+	
+	-- OR --
+	
+	[
+	  {
+	    "service_code":001,
+	    "service_name":"Cans left out 24x7",
+	    "description":"Garbage or recycling cans that have been left out for more than 24 hours after collection. Violators will be cited.",
+	    "metadata":true,
+	    "type":"realtime",
+	    "keywords":"lorem, ipsum, dolor",
+	    "group":"sanitation"
+	  },
+	  {
+	    "service_code":002,
+	    "metadata":true,
+	    "type":"realtime",
+	    "keywords":"lorem, ipsum, dolor",
+	    "group":"street",
+	    "service_name":"Construction plate shifted",
+	    "description":"Metal construction plate covering the street or sidewalk has been moved."
+	  },
+	  {
+	    "service_code":003,
+	    "metadata":true,
+	    "type":"realtime",
+	    "keywords":"lorem, ipsum, dolor",
+	    "group":"street",
+	    "service_name":"Curb or curb ramp defect",
+	    "description":"Sidewalk curb or ramp has problems such as cracking, missing pieces, holes, and/or chipped curb."
+	  }
+	]
 
 open311.statuses
 ==
@@ -201,7 +253,7 @@ Return a list of valid statuses for incidents. The types of statuses and their m
 
 **Example**
 
-	GET http://example.gov/open311-simple/?method=open311.statuses.getList
+	GET http://example.gov/open311/v2/{foo}
 
 open311.where
 ==
@@ -223,7 +275,7 @@ Returns a list of geographic prefixes that may be used to query for incident rep
 
 **Example**
 
-	GET http://example.gov/open311-simple/?method=open311.where.getList
+	GET http://example.gov/open311/v2/{foo}
 
 	{
 		"total": 3,
