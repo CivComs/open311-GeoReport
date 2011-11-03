@@ -175,13 +175,15 @@ if __name__ == '__main__':
 
             if details.get('possible_errors', False):
         
-                for p in details['possible_errors']:
+                for e in details['possible_errors']:
 
                     # guh...
-                    name = p['status_code'].replace("_", "\_")
-                    desc = p['description'].replace("_", "\_")
+                    name = e['status_code'].replace("_", "\_")
+                    desc = e['description'].replace("_", "\_")
                 
-                    out.write("* **%s** - %s" % (name, desc))
+                    out.write("* **%s** | %s" % (name, desc))
+                    
+                    out.write("\n")
 
             out.write("\n")
 
